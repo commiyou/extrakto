@@ -60,7 +60,7 @@ function capture_panes() {
 
 function capture() {
 
-  header="tab=insert, enter=copy"
+  header="tab=copy, enter=insert"
   if [ -n "$open_tool" ]; then header="$header, ctrl-o=open"; fi
   header="$header, ctrl-e=edit"
   header="$header, ctrl-f=toggle filter [$extrakto_opt], ctrl-g=grab area [$grab_area]"
@@ -95,13 +95,13 @@ function capture() {
 
   case $key in
 
-    enter)
+    tab)
       tmux set-buffer -- "$text"
       # run in background as xclip won't work otherwise
       tmux run-shell -b "tmux show-buffer|$clip_tool"
       ;;
 
-    tab)
+    enter)
       tmux set-buffer -- "$text"
       tmux paste-buffer -t !
       ;;
